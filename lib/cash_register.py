@@ -21,7 +21,8 @@ class CashRegister:
 
     def add_item(self, item, price, quantity=1):
         self.total += price * quantity
-        self.items.extend([item]) * quantity
+        for _ in range(quantity):
+            self.items.append(item)
 
         transaction = {
             "item": item,
@@ -34,6 +35,7 @@ class CashRegister:
     def apply_discount(self):
         if self.discount > 0:
             discount_amount = self.total * (self.discount / 100)
+            self.total -= discount_amount
             print(f"After the discount, the total comes to ${int(self.total)}.")
         else:
             print("There is no discount to apply.")
